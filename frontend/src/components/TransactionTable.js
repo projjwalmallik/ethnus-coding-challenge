@@ -46,55 +46,59 @@ const TransactionTable = ({ month }) => {
         {/* Month dropdown can be added here */}
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-black">
+        <table className="w-full rounded-lg">
           <thead>
             <tr className="bg-yellow-200">
-              <th className="p-3 border border-black text-center text-sm font-semibold rounded-tl-lg">
+              <th className="p-3 border-r border-black text-center text-sm font-semibold rounded-tl-lg">
                 ID
               </th>
-              <th className="p-3 border border-black text-center text-sm font-semibold">
+              <th className="p-3 border-r border-black text-center text-sm font-semibold">
                 Title
               </th>
-              <th className="p-3 border border-black text-center text-sm font-semibold">
+              <th className="p-3 border-r border-black text-center text-sm font-semibold">
                 Description
               </th>
-              <th className="p-3 border border-black text-center text-sm font-semibold">
+              <th className="p-3 border-r border-black text-center text-sm font-semibold">
                 Price
               </th>
-              <th className="p-3 border border-black text-center text-sm font-semibold">
+              <th className="p-3 border-r border-black text-center text-sm font-semibold">
                 Category
               </th>
-              <th className="p-3 border border-black text-center text-sm font-semibold">
+              <th className="p-3 border-r border-black text-center text-sm font-semibold">
                 Sold
               </th>
-              <th className="p-3 border border-black text-center text-sm font-semibold rounded-tr-lg">
+              <th className="p-3 text-center text-sm font-semibold rounded-tr-lg">
                 Image
               </th>
             </tr>
           </thead>
           <tbody>
             {transactions.map((transaction) => (
-              <tr key={transaction.id} className="bg-white">
-                <td className="p-3 border border-black text-center">
+              <tr key={transaction.id} className="bg-yellow-200">
+                <td className="p-3 border-r border-black text-center">
                   {transaction.id}
                 </td>
-                <td className="p-3 border border-black text-center">
+                <td className="p-3 border-r border-black text-center">
                   {transaction.title}
                 </td>
-                <td className="p-3 border border-black text-center">
+                <td className="p-3 border-r border-black text-center">
                   {transaction.description}
                 </td>
-                <td className="p-3 border border-black text-center">
+                <td className="p-3 border-r border-black text-center">
                   {transaction.price}
                 </td>
-                <td className="p-3 border border-black text-center">
+                <td className="p-3 border-r border-black text-center">
                   {transaction.category}
                 </td>
-                <td className="p-3 border border-black text-center">
+                <td className="p-3 border-r border-black text-center">
                   {transaction.sold ? "Yes" : "No"}
                 </td>
-                <td className="p-3 border border-black text-center">
-                  {transaction.image}
+                <td className="p-3 text-center">
+                  <img
+                    src={transaction.image}
+                    alt={transaction.title}
+                    className="w-16 h-16 object-cover rounded"
+                  />
                 </td>
               </tr>
             ))}
