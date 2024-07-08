@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const TransactionTable = ({ month }) => {
+const TransactionTable = ({ month, setMonth }) => {
   const [transactions, setTransactions] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -29,7 +29,7 @@ const TransactionTable = ({ month }) => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center  mb-4">
         <input
           type="text"
           placeholder="Search..."
@@ -43,31 +43,50 @@ const TransactionTable = ({ month }) => {
         >
           Go
         </button>
-        {/* Month dropdown can be added here */}
+        <div>
+          <select
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            className="border p-2 rounded bg-yellow-400 ml-2 right-4"
+          >
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+        </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full rounded-lg">
+        <table className="w-full bg-yellow-200 rounded-lg border-collapse">
           <thead>
-            <tr className="bg-yellow-200">
-              <th className="p-3 border-r border-black text-center text-sm font-semibold rounded-tl-lg">
+            <tr>
+              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold rounded-tl-lg">
                 ID
               </th>
-              <th className="p-3 border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
                 Title
               </th>
-              <th className="p-3 border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
                 Description
               </th>
-              <th className="p-3 border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
                 Price
               </th>
-              <th className="p-3 border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
                 Category
               </th>
-              <th className="p-3 border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
                 Sold
               </th>
-              <th className="p-3 text-center text-sm font-semibold rounded-tr-lg">
+              <th className="p-3 border-b border-black text-center text-sm font-semibold rounded-tr-lg">
                 Image
               </th>
             </tr>
@@ -75,25 +94,25 @@ const TransactionTable = ({ month }) => {
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction.id} className="bg-yellow-200">
-                <td className="p-3 border-r border-black text-center">
+                <td className="p-3 border-b border-r border-black text-center">
                   {transaction.id}
                 </td>
-                <td className="p-3 border-r border-black text-center">
+                <td className="p-3 border-b border-r border-black text-center">
                   {transaction.title}
                 </td>
-                <td className="p-3 border-r border-black text-center">
+                <td className="p-3 border-b border-r border-black text-center">
                   {transaction.description}
                 </td>
-                <td className="p-3 border-r border-black text-center">
+                <td className="p-3 border-b border-r border-black text-center">
                   {transaction.price}
                 </td>
-                <td className="p-3 border-r border-black text-center">
+                <td className="p-3 border-b border-r border-black text-center">
                   {transaction.category}
                 </td>
-                <td className="p-3 border-r border-black text-center">
+                <td className="p-3 border-b border-r border-black text-center">
                   {transaction.sold ? "Yes" : "No"}
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 border-b border-black text-center">
                   <img
                     src={transaction.image}
                     alt={transaction.title}
