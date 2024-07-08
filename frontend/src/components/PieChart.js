@@ -51,12 +51,15 @@ const PieChart = ({ month }) => {
     maxWidth: "400px", // Adjust as needed
     margin: "0 auto", // Center align horizontally
   };
+  const monthName = new Date(`2022-${month}-01`).toLocaleString("default", {
+    month: "long",
+  });
 
   return (
     <div className="container mx-auto p-4">
-      <div className="card shadow-sm">
+      <div className="card">
         <div className="card-body">
-          <h5 className="card-title text-center">Pie Chart</h5>
+          <h2 className="text-2xl font-bold mb-4">Pie Chart - {monthName}</h2>
           <div style={chartStyle}>
             <Pie data={data} options={options} />
           </div>

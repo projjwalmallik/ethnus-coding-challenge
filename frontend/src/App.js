@@ -25,8 +25,10 @@ const App = () => {
       </div>
       <TransactionTable month={month} setMonth={setMonth} />
       <Statistics month={month} />
-      <BarChart month={month} />
-      <PieChart month={month} />
+      <div className="flex">
+        <BarChart month={month} />
+        <PieChart month={month} />
+      </div>
     </div>
   );
 };

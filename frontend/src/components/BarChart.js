@@ -44,6 +44,8 @@ const BarChart = ({ month }) => {
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: { type: "category" },
           y: { beginAtZero: true },
@@ -51,11 +53,15 @@ const BarChart = ({ month }) => {
       },
     });
   }, [barData]);
-
+  const monthName = new Date(`2022-${month}-01`).toLocaleString("default", {
+    month: "long",
+  });
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Bar Chart</h2>
-      <canvas id="myBarChart"></canvas>
+      <h2 className="text-2xl font-bold mb-4">Bar Chart - {monthName}</h2>
+      <div className="relative h-80 max-w-lg">
+        <canvas id="myBarChart" className="h-full w-full"></canvas>
+      </div>
     </div>
   );
 };
