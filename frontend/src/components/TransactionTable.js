@@ -32,10 +32,10 @@ const TransactionTable = ({ month, setMonth }) => {
       <div className="flex items-center  mb-4">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search transactions"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border border-gray-300 rounded mr-2 w-1/3"
+          className="p-2 border border-gray-300 rounded-2xl mr-2 w-1/3 bg-yellow-200"
         />
         <button
           className="px-3 py-2 bg-blue-500 text-white rounded"
@@ -47,7 +47,7 @@ const TransactionTable = ({ month, setMonth }) => {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="border p-2 rounded bg-yellow-400 ml-2 right-4"
+            className="border p-2 rounded-xl bg-yellow-400 ml-2 right-4"
           >
             <option value="01">January</option>
             <option value="02">February</option>
