@@ -6,22 +6,33 @@ import PieChart from "./components/PieChart";
 import axios from "axios";
 
 const App = () => {
-  const [month, setMonth] = useState("03"); // Default to March
+  const [month, setMonth] = useState("03");
+
   useEffect(() => {
-    const databaseCreated = axios.get(
-      `http://localhost:5000/api/transactions/initialize`
-    );
-    if (databaseCreated) {
-      console.log("Database created successfully!");
-    } else {
-      console.log("Database creation failed!");
-    }
-  });
+    const initializeDatabase = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/transactions/initialize`
+        );
+        if (response.data.success) {
+          console.log("Database created successfully!");
+        } else {
+          console.log("Database creation failed!");
+        }
+      } catch (error) {
+        console.log("Error initializing database", error);
+      }
+    };
+
+    initializeDatabase();
+  }, []);
 
   return (
-    <div className="container mx-auto p-4 bg-slate-200">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Transactions Dashboard</h1>
+    <div className="container w-full p-4 bg-slate-200">
+      <div className="flex w-full justify-center items-center mb-4">
+        <div className="w-40 h-40 flex items-center justify-center rounded-full text-2xl text-center font-bold bg-white">
+          Transactions Dashboard
+        </div>
       </div>
       <TransactionTable month={month} setMonth={setMonth} />
       <Statistics month={month} />

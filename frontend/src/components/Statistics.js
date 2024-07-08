@@ -30,7 +30,7 @@ const Statistics = ({ month }) => {
       <div className="flex flex-col items-start">
         <div className="flex justify-between w-full mb-2">
           <h3 className="text-lg font-semibold mr-2">Total Sale Amount:</h3>
-          <p className="text-xl">{statistics.totalSaleAmount}</p>
+          <p className="text-xl">{statistics.totalSaleAmount.toFixed(2)}</p>
         </div>
         <div className="flex justify-between w-full mb-2">
           <h3 className="text-lg font-semibold">Sold Items:</h3>

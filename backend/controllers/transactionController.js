@@ -1,7 +1,6 @@
 const axios = require("axios");
 const Transaction = require("../models/Transaction");
 
-// Initialize Database
 const initializeDatabase = async (req, res) => {
   try {
     const { data } = await axios.get(
@@ -15,7 +14,6 @@ const initializeDatabase = async (req, res) => {
   }
 };
 
-// List Transactions
 const listTransactions = async (req, res) => {
   const { page = 1, perPage = 10, search = "", month } = req.query;
   const regex = new RegExp(search, "i");
@@ -58,7 +56,6 @@ const listTransactions = async (req, res) => {
   }
 };
 
-// Get Statistics
 const getStatistics = async (req, res) => {
   const { month } = req.query;
   const startOfMonth = new Date(`2022-${month}-01`);
@@ -99,7 +96,6 @@ const getStatistics = async (req, res) => {
   }
 };
 
-// Get Bar Chart Data
 const getBarChart = async (req, res) => {
   const { month } = req.query;
   const startOfMonth = new Date(`2022-${month}-01`);
@@ -139,7 +135,6 @@ const getBarChart = async (req, res) => {
   }
 };
 
-// Get Pie Chart Data
 const getPieChart = async (req, res) => {
   const { month } = req.query;
   const startOfMonth = new Date(`2022-${month}-01`);
@@ -161,7 +156,6 @@ const getPieChart = async (req, res) => {
   }
 };
 
-// Get Combined Data
 const getCombinedData = async (req, res) => {
   const { month } = req.query;
 

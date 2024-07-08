@@ -7,6 +7,7 @@ const TransactionTable = ({ month, setMonth }) => {
   const [page, setPage] = useState(1);
   const [perPage] = useState(10);
   const [search, setSearch] = useState("");
+  const [expandedDescriptions, setExpandedDescriptions] = useState([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -27,66 +28,72 @@ const TransactionTable = ({ month, setMonth }) => {
     fetchTransactions();
   }, [page, perPage, search, month]);
 
+  const handleExpandClick = (id) => {
+    setExpandedDescriptions((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
   return (
     <div className="container mx-auto p-4">
-      <div className="flex items-center  mb-4">
-        <input
-          type="text"
-          placeholder="Search transactions"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border border-gray-300 rounded-2xl mr-2 w-1/3 bg-yellow-200"
-        />
-        <button
-          className="px-3 py-2 bg-blue-500 text-white rounded"
-          onClick={() => setPage(1)}
-        >
-          Go
-        </button>
+      <div className="flex items-center justify-between mb-2">
         <div>
-          <select
-            value={month}
-            onChange={(e) => setMonth(e.target.value)}
-            className="border p-2 rounded-xl bg-yellow-400 ml-2 right-4"
+          <input
+            type="text"
+            placeholder="Search transactions"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="p-2 bg-yellow-200 border  border-gray-300 rounded-2xl mr-2 w-2/3"
+          />
+          <button
+            className="px-3 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPage(1)}
           >
-            <option value="01">January</option>
-            <option value="02">February</option>
-            <option value="03">March</option>
-            <option value="04">April</option>
-            <option value="05">May</option>
-            <option value="06">June</option>
-            <option value="07">July</option>
-            <option value="08">August</option>
-            <option value="09">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-          </select>
+            Go
+          </button>
         </div>
+        <select
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+          className="border p-2 rounded-xl ml-2"
+        >
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full bg-yellow-200 rounded-lg border-collapse">
           <thead>
             <tr>
-              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold rounded-tl-lg">
+              <th className="p-3 border-b-2 border-r-2 border-black text-center text-sm font-semibold rounded-tl-lg">
                 ID
               </th>
-              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b-2 border-r-2 border-black text-center text-sm font-semibold">
                 Title
               </th>
-              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b-2 border-r-2 border-black text-center text-sm font-semibold">
                 Description
               </th>
-              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b-2 border-r-2 border-black text-center text-sm font-semibold">
                 Price
               </th>
-              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b-2 border-r-2 border-black text-center text-sm font-semibold">
                 Category
               </th>
-              <th className="p-3 border-b border-r border-black text-center text-sm font-semibold">
+              <th className="p-3 border-b-2 border-r-2 border-black text-center text-sm font-semibold">
                 Sold
               </th>
-              <th className="p-3 border-b border-black text-center text-sm font-semibold rounded-tr-lg">
+              <th className="p-3 border-b-2 border-black text-center text-sm font-semibold rounded-tr-lg">
                 Image
               </th>
             </tr>
@@ -94,25 +101,50 @@ const TransactionTable = ({ month, setMonth }) => {
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction.id} className="bg-yellow-200">
-                <td className="p-3 border-b border-r border-black text-center">
+                <td className="p-3 border-b-2 border-r-2 border-black text-center">
                   {transaction.id}
                 </td>
-                <td className="p-3 border-b border-r border-black text-center">
+                <td className="p-3 border-b-2 border-r-2 border-black text-center">
                   {transaction.title}
                 </td>
-                <td className="p-3 border-b border-r border-black text-center">
-                  {transaction.description}
+                <td className="p-3 border-b-2 border-r-2 border-black text-center">
+                  {expandedDescriptions.includes(transaction.id) ||
+                  transaction.description.length <= 50 ? (
+                    <>
+                      {transaction.description}
+                      {transaction.description.length > 50 && (
+                        <button
+                          onClick={() => handleExpandClick(transaction.id)}
+                          className="ml-2"
+                        >
+                          {expandedDescriptions.includes(transaction.id)
+                            ? "See Less"
+                            : "See More"}
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {transaction.description.substring(0, 50)}...
+                      <button
+                        onClick={() => handleExpandClick(transaction.id)}
+                        className="ml-2"
+                      >
+                        See More
+                      </button>
+                    </>
+                  )}
                 </td>
-                <td className="p-3 border-b border-r border-black text-center">
+                <td className="p-3 border-b-2 border-r-2 border-black text-center">
                   {transaction.price}
                 </td>
-                <td className="p-3 border-b border-r border-black text-center">
+                <td className="p-3 border-b-2 border-r-2 border-black text-center">
                   {transaction.category}
                 </td>
-                <td className="p-3 border-b border-r border-black text-center">
+                <td className="p-3 border-b-2 border-r-2 border-black text-center">
                   {transaction.sold ? "Yes" : "No"}
                 </td>
-                <td className="p-3 border-b border-black text-center">
+                <td className="p-3 border-b-2 border-black text-center">
                   <img
                     src={transaction.image}
                     alt={transaction.title}
